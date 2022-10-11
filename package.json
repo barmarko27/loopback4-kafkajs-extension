@@ -28,7 +28,8 @@
     "test": "nyc --reporter=html --reporter=text lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "prepare" : "npm run build"
   },
   "repository": {
     "type": "git"
