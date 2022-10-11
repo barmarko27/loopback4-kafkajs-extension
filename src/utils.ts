@@ -1,7 +1,7 @@
 import {Topic, NormalizedTopic} from './types';
 
 export function isObject(value?: unknown): value is Object {
-  return value && typeof value === 'object' && value?.constructor === Object;
+  return typeof value === 'object' && value?.constructor === Object;
 }
 
 export function isNormalizedTopic(topic: Topic): topic is NormalizedTopic {

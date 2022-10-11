@@ -18,19 +18,19 @@ export class SerializerSatellite {
     return this.serializer.encode(data);
   }
 
-  decode(data: Buffer) {
+  decode(data: Buffer): unknown {
     return this.serializer.decode(data);
   }
 
-  decodeMessage(message: KafkaMessage) {
+  decodeMessage(message: KafkaMessage): object {
     return {
       ...message,
       key: message.key ? this.decode(message.key) : null,
-      value: this.decode(message.value),
+      value: this.decode(message.value!),
     };
   }
 
-  encodeProducerRecord(record: ProducerRecord) {
+  encodeProducerRecord(record: ProducerRecord): object {
     return {
       ...record,
       messages: record.messages.map(message => ({
@@ -41,14 +41,14 @@ export class SerializerSatellite {
     };
   }
 
-  decodeMessagePayload(payload: EachMessagePayload) {
+  decodeMessagePayload(payload: EachMessagePayload): object {
     return {
       ...payload,
       message: this.decodeMessage(payload.message),
     };
   }
 
-  encodeProducerBatch(batch: ProducerBatch) {
+  encodeProducerBatch(batch: ProducerBatch): object {
     return {
       ...batch,
       topicMessages:
@@ -58,7 +58,7 @@ export class SerializerSatellite {
     };
   }
 
-  decodeBatchPayload(payload: EachBatchPayload) {
+  decodeBatchPayload(payload: EachBatchPayload): object {
     return {
       ...payload,
       batch: {
