@@ -22,7 +22,7 @@ export class SerializerSatellite {
     return this.serializer.decode(data);
   }
 
-  decodeMessage(message: KafkaMessage): object {
+  decodeMessage(message: KafkaMessage): {[key: string]: any, key: unknown, value: unknown} {
     return {
       ...message,
       key: message.key ? this.decode(message.key) : null,
@@ -41,7 +41,7 @@ export class SerializerSatellite {
     };
   }
 
-  decodeMessagePayload(payload: EachMessagePayload): object {
+  decodeMessagePayload(payload: EachMessagePayload): {[key: string]: any, message: {[key: string]: any, key: unknown, value: unknown}} {
     return {
       ...payload,
       message: this.decodeMessage(payload.message),
@@ -52,9 +52,9 @@ export class SerializerSatellite {
     return {
       ...batch,
       topicMessages:
-        batch?.topicMessages?.map(record =>
-          this.encodeProducerRecord(record),
-        ) ?? [],
+          batch?.topicMessages?.map(record =>
+              this.encodeProducerRecord(record),
+          ) ?? [],
     };
   }
 
@@ -64,7 +64,7 @@ export class SerializerSatellite {
       batch: {
         ...payload.batch,
         messages: payload.batch.messages.map(message =>
-          this.decodeMessage(message),
+            this.decodeMessage(message),
         ),
       },
     };
