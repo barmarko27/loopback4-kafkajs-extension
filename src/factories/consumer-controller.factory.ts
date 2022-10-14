@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {invokeMethod, MetadataInspector} from '@loopback/context';
 import {
   Consumer,
