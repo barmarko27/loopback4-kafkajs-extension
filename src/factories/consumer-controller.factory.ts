@@ -64,7 +64,7 @@ export class ConsumerControllerFactory extends BaseFactory {
 
     this.detectMethodsTopicDuplicateError(schema);
 
-    const topics: Topic[] = Object.values(schema).flat() as Topic[];
+    const topics: Topic[] = Object.values(schema).flat() as unknown as Topic[];
 
     for await (const topic of topics) {
       await consumer.subscribe(normalizeTopic(topic));
